@@ -1,6 +1,4 @@
 const CharacterCard = ({ charData }) => {
-    console.log(charData);
-
     const { image, name, gender, status, species } = charData;
 
     return (

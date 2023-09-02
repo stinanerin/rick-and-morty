@@ -9,6 +9,7 @@ export const fetchData = async (route, params) => {
         const res = await api.get(route, { params });
 
         if (res.status !== 200) throw new Error();
+        console.log(res.request.responseURL);
 
         return res;
     } catch (error) {
