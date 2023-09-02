@@ -1,8 +1,37 @@
-import { useEffect } from "react";
-
 const Pagination = ({ setPage, numPages, currentPage }) => {
+    // console.log("currentPage", currentPage);
+
+    // Max num of visible pages
+    const maxVisiblePages = 5;
+
+    // Calculate half of the maxVisiblePages
+    const halfMaxVisiblePages = Math.floor(maxVisiblePages / 2);
+    // console.log("halfMaxVisiblePages", halfMaxVisiblePages);
+
+    // Calculate the starting page number for the visible range - in the middle of the visisble range
+    let startPage = currentPage - halfMaxVisiblePages;
+    // Ensure the startPage is never less than 1
+    if (startPage < 1) {
+        startPage = 1;
+    }
+    // console.log("startPage", startPage);
+    let endPage = startPage + maxVisiblePages - 1;
+    // console.log("endPage", endPage);
+
+    if (endPage > numPages) {
+        endPage = numPages;
+        startPage = Math.max(endPage - maxVisiblePages + 1, 1);
+    }
+
+    const pageNumbers = [];
+    // Loop through the range of page numbers within the visible range
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+    }
+    // console.log("pageNumbers to display", pageNumbers);
+
     return (
-        <div className="flex justify-center items-center mt-10">
+        <div className=" flex justify-center  mt-10">
             <button
                 className=" p-2 "
                 onClick={() => setPage((prevState) => prevState - 1)}
@@ -23,21 +52,50 @@ const Pagination = ({ setPage, numPages, currentPage }) => {
                     />
                 </svg>
             </button>
-            <ul className="flex flex-wrap items-center mt-10">
-                {[...Array(numPages)].map((el, index) => {
-                    return (
+            <ul className="flex flex-wrap items-center ">
+                {/* Display the first page if not on the first page */}
+
+                {startPage > 1 && (
+                    <>
                         <li
-                            className={`p-2 hover:cursor-pointer ${
-                                currentPage === index + 1 &&
-                                "text-zinc-500 border-b-2 border-zinc-500 "
-                            }`}
-                            key={"page" + index}
-                            onClick={() => setPage(index + 1)}
+                            className="p-2 hover:cursor-pointer"
+                            key="pageStart"
+                            onClick={() => setPage(1)}
                         >
-                            {index + 1}
+                            1
                         </li>
-                    );
-                })}
+
+                        {/*  If there are more than two pages between the first page and 
+                            the start of the visible range, display ... */}
+                        {startPage > 2 && <li className="p-2">...</li>}
+                    </>
+                )}
+                {pageNumbers.map((pageNumber) => (
+                    <li
+                        className={`p-2 hover:cursor-pointer ${
+                            currentPage === pageNumber &&
+                            "text-zinc-500 border-b-2 border-zinc-500"
+                        }`}
+                        key={"page" + pageNumber}
+                        onClick={() => setPage(pageNumber)}
+                    >
+                        {pageNumber}
+                    </li>
+                ))}
+                {/* If there are more pages after the visible range, display an ellipsis.
+                 */}
+                {endPage < numPages && (
+                    <>
+                        {endPage < numPages - 1 && <li className="p-2">...</li>}
+                        <li
+                            className="p-2 hover:cursor-pointer"
+                            key="pageEnd"
+                            onClick={() => setPage(numPages)}
+                        >
+                            {numPages}
+                        </li>
+                    </>
+                )}
             </ul>
             <button
                 className="p-2"

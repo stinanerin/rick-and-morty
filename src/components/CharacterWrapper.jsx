@@ -4,8 +4,6 @@ import Pagination from "./Pagination";
 const CharacterWrapper = ({ data, setPage, currentPage }) => {
     const numPages = data.info.pages;
 
-    console.log("choosen page", currentPage);
-
     return (
         <div>
             {data.results.length === 0 ? (
