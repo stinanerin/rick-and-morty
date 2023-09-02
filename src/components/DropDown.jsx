@@ -16,7 +16,7 @@ const DropDown = ({ optionsObj, setSelectedValue }) => {
             </label>
             <select
                 id={`filterBy${filter}`}
-                className="rounded-md bg-neutral-600 py-1 px-2 w-1/4"
+                className="rounded-md bg-neutral-600 py-1 px-2 sm:w-3/4"
                 onChange={handleFilter}
             >
                 {arr.map((opt, index) => {

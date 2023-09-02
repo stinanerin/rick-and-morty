@@ -50,22 +50,28 @@ function App() {
             <h1 className=" text-center my-6 text-xl sm:text-3xl uppercase font-bold tracking-tight text-text ">
                 Rick & Morty
             </h1>
-            <Search setNameSearch={setNameSearch} />
-            <DropDown
-                optionsObj={genderObj}
-                selectedValue={selectedGender}
-                setSelectedValue={setSelectedGender}
-            />
-            <DropDown
-                optionsObj={speciesObj}
-                selectedValue={selectedSpecies}
-                setSelectedValue={setSelectedSpecies}
-            />
-            <DropDown
-                optionsObj={statusObj}
-                selectedValue={selectedStatus}
-                setSelectedValue={setSelectedStatus}
-            />
+            <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col justify-between ">
+                    <Search setNameSearch={setNameSearch} />
+                    <DropDown
+                        optionsObj={genderObj}
+                        selectedValue={selectedGender}
+                        setSelectedValue={setSelectedGender}
+                    />
+                </div>
+                <div className="flex flex-col justify-between gap-2 sm:gap-6">
+                    <DropDown
+                        optionsObj={speciesObj}
+                        selectedValue={selectedSpecies}
+                        setSelectedValue={setSelectedSpecies}
+                    />
+                    <DropDown
+                        optionsObj={statusObj}
+                        selectedValue={selectedStatus}
+                        setSelectedValue={setSelectedStatus}
+                    />
+                </div>
+            </div>
             {characterData && (
                 <p className="my-3">
                     You´re looking for{" "}
