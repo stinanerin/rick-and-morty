@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData } from "./services/api";
 import { genderObj, speciesObj, statusObj } from "./data/filterOptions";
 
@@ -6,17 +6,13 @@ import CharacterWrapper from "./components/CharacterWrapper";
 import Search from "./components/Search";
 import DropDown from "./components/DropDown";
 
-// Not context provider component
-import { CharacterListContext } from "./components/context/CharacterListContext";
-
 function App() {
+    const [characterData, setCharacterData] = useState(null);
+
     const [selectedGender, setSelectedGender] = useState("");
     const [selectedSpecies, setSelectedSpecies] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("");
     const [nameSearch, setNameSearch] = useState("");
-
-    const { characterData, setCharacterData } =
-        useContext(CharacterListContext);
 
     useEffect(() => {
         const fetchCharacters = async () => {
