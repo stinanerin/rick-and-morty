@@ -1,7 +1,10 @@
 import CharacterCard from "./CharacterCard";
 
-const CharacterWrapper = ({ data }) => {
-    console.log(data);
+const CharacterWrapper = ({ data, setPage, page }) => {
+    const numPages = data.info.pages;
+
+    console.log("choosen page", page);
+
     return (
         <div>
             {data.results.length === 0 ? (
@@ -19,6 +22,22 @@ const CharacterWrapper = ({ data }) => {
                             );
                         })}
                     </div>
+                    <ul className="flex flex-wrap mt-10">
+                        {[...Array(numPages)].map((el, index) => {
+                            return (
+                                <li
+                                    className={`p-2 hover:cursor-pointer ${
+                                        page === index + 1 &&
+                                        "text-zinc-500 border-b-2 border-zinc-500 "
+                                    }`}
+                                    key={"page" + index}
+                                    onClick={() => setPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </>
             )}
         </div>

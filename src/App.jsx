@@ -13,20 +13,31 @@ function App() {
     const [selectedSpecies, setSelectedSpecies] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("");
     const [nameSearch, setNameSearch] = useState("");
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        // Reset page to first when any of the otehr filter options change
+        setPage(1);
+    }, [selectedGender, selectedSpecies, selectedStatus, nameSearch]);
 
     useEffect(() => {
         const fetchCharacters = async () => {
-            const res = await fetchData("", {
-                gender: selectedGender,
-                species: selectedSpecies,
-                status: selectedStatus,
-                name: nameSearch,
-            });
-            setCharacterData(res ? res.data : { info: null, results: [] });
+            try {
+                const res = await fetchData("", {
+                    gender: selectedGender,
+                    species: selectedSpecies,
+                    status: selectedStatus,
+                    name: nameSearch,
+                    page: page,
+                });
+                setCharacterData(res ? res.data : { info: null, results: [] });
+            } catch (error) {
+                console.log(error);
+            }
         };
 
         fetchCharacters();
-    }, [nameSearch, selectedGender, selectedSpecies, selectedStatus]);
+    }, [page, nameSearch, selectedGender, selectedSpecies, selectedStatus]);
 
     return (
         <div className="max-w-5xl mx-5 sm:mx-10 lg:mx-auto   mb-5  text-white">
@@ -98,7 +109,13 @@ function App() {
                     )}
                 </p>
             )}
-            {characterData && <CharacterWrapper data={characterData} />}
+            {characterData && (
+                <CharacterWrapper
+                    data={characterData}
+                    setPage={setPage}
+                    page={page}
+                />
+            )}
         </div>
     );
 }
