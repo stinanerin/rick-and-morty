@@ -5,7 +5,7 @@ const CharacterWrapper = ({ data }) => {
     return (
         <div>
             {data.results.length === 0 ? (
-                <p>No characters match search</p>
+                <p className="my-2">Oops... No characters match your search</p>
             ) : (
                 <>
                     <p className="text-center mb-4 text-sm md:text-base ">

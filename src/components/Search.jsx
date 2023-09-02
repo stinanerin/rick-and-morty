@@ -1,25 +1,12 @@
-import { useState, useContext } from "react";
-import { fetchData } from "../services/api";
+import { useState } from "react";
 
-// Not context provider component
-import { CharacterListContext } from "./context/CharacterListContext";
-
-const Search = () => {
+const Search = ({ setNameSearch }) => {
     const [searchValue, setSearchValue] = useState("");
-
-    const { setCharacterData } = useContext(CharacterListContext);
 
     const handleSearch = async (e) => {
         e.preventDefault();
         console.log(searchValue);
-
-        try {
-            const res = await fetchData("", { name: searchValue });
-            console.log(res);
-            setCharacterData(res ? res.data : { info: null, results: [] });
-        } catch (error) {
-            console.log(error);
-        }
+        setNameSearch(searchValue);
     };
 
     return (
@@ -30,7 +17,7 @@ const Search = () => {
             <input
                 id="searchInput"
                 type="text"
-                className="rounded-lg bg-neutral-600 py-1 px-4 w-1/4"
+                className="rounded-md bg-neutral-600 py-1 px-2 w-1/4"
                 placeholder="Search for name"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
