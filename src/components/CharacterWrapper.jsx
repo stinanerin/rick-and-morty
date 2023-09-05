@@ -2,7 +2,7 @@ import CharacterCard from "./CharacterCard";
 import Pagination from "./Pagination";
 
 const CharacterWrapper = ({ data, setPage, currentPage }) => {
-    const numPages = data.info.pages;
+    const numPages = data.info?.pages;
 
     return (
         <div>

@@ -15,5 +15,6 @@ export const fetchData = async (route, params) => {
     } catch (error) {
         //todo
         console.log(error);
+        return error;
     }
 };

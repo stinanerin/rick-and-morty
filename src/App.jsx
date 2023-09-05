@@ -30,7 +30,9 @@ function App() {
                     name: nameSearch,
                     page: currentPage,
                 });
-                setCharacterData(res ? res.data : { info: null, results: [] });
+                setCharacterData(
+                    res.data ? res.data : { info: null, results: [] }
+                );
             } catch (error) {
                 console.log(error);
             }
